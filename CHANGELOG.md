@@ -51,3 +51,35 @@
 ### 5. Deploy no Railway
 * **Status:** O site foi estruturado de forma 100% estática e limpa.
 * **Comportamento no Railway:** Ao ler o repositório, o Railway (via Nixpacks/Railpack) identifica automaticamente o arquivo `index.html` na raiz do projeto e implanta um servidor **NGINX** otimizado para servir o site estático com o menor consumo de RAM possível.
+
+### 6. Atualização de Cores (Navy Blue & Orange)
+* **Mudança:** Substituição da cor escura carvão/preto original (`brand-darkGray: '#1F2421'`) por uma paleta de azul-marinho profundo (`brand-navy: '#0A192F'`).
+* **Solução:**
+  * No [index.html](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/index.html), renomeada a cor e atualizadas todas as classes estruturais (ex: `text-brand-navy`, `bg-brand-navy`).
+  * No [admin.html](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/admin.html), configuramos a paleta `slate` no Tailwind CSS config para usar tons de azul-marinho (variando de `#061626` para o fundo principal até `#F0F4F8` para textos).
+  * Atualizado o efeito glassmorphism (`.glass`) para usar azul-marinho translúcido (`rgba(16, 42, 67, 0.45)`).
+
+### 7. Sistema de Review Visual & Feedback Loop
+* **Problema:** Necessidade de permitir que a mentora (Polly) revise o site e envie sugestões de alteração de texto/imagens diretamente de forma visual.
+* **Solução:**
+  * **Modo Review Interativo:** Criado o modo review no front-end (`index.html?review=true`) com realces tracejados (`outline: 2px dashed #FF5A1F`) e fundo dinâmico ao passar o mouse.
+  * **Captura de Cliques:** Cliques nos elementos interceptam a ação e abrem um modal com o seletor CSS do elemento (ex: `body > section#home h1`), o texto original, o novo texto sugerido e o comentário.
+  * **Botão de Atalho:** Adicionado um link "Revisar Site" no topo direito do painel administrativo.
+  * **Nova Aba Dedicada no Google Sheets:** Criamos a aba `Feedbacks` e atualizamos o Google Apps Script para salvar as sugestões nela de forma independente de inscrições e contatos.
+  * **Compilador do Agente local ([apply_feedbacks.py](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/apply_feedbacks.py)):** Desenvolvido um script em Python que consome a API do Google Sheets, localiza exatamente os elementos no arquivo local via seletor CSS usando a biblioteca `bs4` (mapeando a linha e coluna de início e buscando a tag de fechamento por pilha), e aplica as alterações diretamente preservando a formatação original do arquivo.
+
+### 8. Gestão Multi-Administradores & Trilha de Auditoria (Audit Trail)
+* **Problema:** Necessidade de rastrear quem solicitou cada feedback e quem atualizou o status de CRM de cada aluno.
+* **Solução:**
+  * **Mapeamento de Senhas:** Atualizado o Apps Script para usar um dicionário `ADMINS` que mapeia senhas específicas para nomes (ex: `Igor` ou `Polly`).
+  * **Dropdown de Revisor:** Adicionado no widget de review do site um seletor dropdown permitindo alternar quem está revisando (com preenchimento automático a partir do admin).
+  * **Colunas de Auditoria:** Criadas as colunas `Requested By` (Solicitado por) na aba de feedbacks e `Updated By` (Alterado por) em todas as abas. O Apps Script carimba o nome do admin na coluna correspondente sempre que uma mudança é efetuada.
+  * **Exibição do Log:** O modal de visualização no [admin.html](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/admin.html) agora exibe no rodapé o nome de quem solicitou o feedback e de quem realizou a última alteração no CRM do registro.
+  * **Resolução de Conflitos de Caracteres no Apps Script:** Criada a função de busca por aba normalizada (`getSheetNormalized`) que remove acentos e espaços de forma a ignorar erros de digitação de nomes de aba (como `Inscrições` vs `Inscricoes`).
+
+### 9. Nova Localização e Política de Atualização do Showcase
+* **Mudança:** Definição permanente da localização do portfólio/showcase fora do repositório da aplicação.
+* **Solução:**
+  * Atualizado o arquivo de configuração local [`.showcase_config.json`](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/.showcase_config.json) com o atributo `update_policy`.
+  * Adicionada a instrução de atualização no [README.md](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/README.md) do site principal.
+  * Documentada a política de atualização e vinculada de volta ao projeto no [README.md](file:///home/igor-gomides/Documents/Antigravity/MYPORTIFOLIO/showcase/README.md) do showcase externo.

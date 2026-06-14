@@ -33,3 +33,4 @@ O Railway utiliza **Nixpacks** para identificar o arquivo `index.html` na raiz e
 
 ## ⚠️ Instruções para Assistentes de IA (AI Coding Assistants)
 * **Importante:** Sempre que realizar modificações ou melhorias no código deste projeto, **atualize o arquivo de log/changelog** da conversa ou do repositório para manter o histórico de alterações limpo e atualizado para o usuário.
+* **Atualização do Showcase:** O showcase deste projeto foi movido para a pasta de portfólio externa. Toda vez que formos atualizar o showcase, as alterações devem ser gravadas obrigatoriamente na pasta: `/home/igor-gomides/Documents/Antigravity/MYPORTIFOLIO/showcase` (como configurado no arquivo [`.showcase_config.json`](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/.showcase_config.json) na raiz do projeto).
