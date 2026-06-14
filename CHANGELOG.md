@@ -42,8 +42,11 @@
   * Criada uma tela de login (Login Gate) protegida por senha baseada em Apps Script.
   * Implementados indicadores estatísticos em tempo real (total de envios, inscrições e contatos).
   * Criada uma barra de busca e filtros rápidos integrados.
-  * Adicionado um modal lateral (slide-over) para detalhar as informações de cada aluno, com atalho para enviar e-mail de resposta instantaneamente.
-  * Atualizado o código do Google Apps Script com o método `doGet(e)` para puxar os dados do Sheets de forma segura por meio de senha.
+  * Adicionado suporte às 11 colunas da planilha, mapeando os novos campos de fluxo de trabalho (`Payment Confirmed`, `Onboarding Completed`, `Follow-up Needed` e `Internal Notes`).
+  * Implementados mini-indicadores (status badges) visuais na tabela para acompanhar o progresso de cada aluno de forma consolidada.
+  * Desenvolvido suporte para **editar** os dados de acompanhamento diretamente do site: o painel agora envia atualizações (`action=update`) para o Google Apps Script, que edita a linha correspondente do Google Sheets em tempo real.
+  * Adicionado um modal lateral (slide-over) para detalhar as informações de cada aluno, editar notas/status, com atalho para enviar e-mail de resposta instantaneamente.
+  * Atualizado o código do Google Apps Script com suporte a leituras (`doGet`) e atualizações de linha (`doPost` com `action=update`).
 
 ### 5. Deploy no Railway
 * **Status:** O site foi estruturado de forma 100% estática e limpa.
