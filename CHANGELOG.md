@@ -35,6 +35,16 @@
   * Escrito e fornecido o código em **Google Apps Script** para rodar diretamente na planilha do Google Sheets no Google Drive do usuário (sem depender de serviços pagos de terceiros).
   * Integrada a URL do Web App gerada no script (`/exec`) diretamente no atributo `action` de ambos os formulários no [index.html](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/index.html).
 
-### 4. Deploy no Railway
+### 4. Área Administrativa Segura (admin.html)
+* **Problema:** A Polly Gomides não tinha um painel administrativo para visualizar as inscrições dos alunos e contatos enviados pelo site sem ter que abrir diretamente a planilha de dados no Google Sheets.
+* **Solução:**
+  * Desenvolvido o arquivo [admin.html](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/admin.html) contendo um painel de controle premium com tema escuro (Dark Mode) e design responsivo.
+  * Criada uma tela de login (Login Gate) protegida por senha baseada em Apps Script.
+  * Implementados indicadores estatísticos em tempo real (total de envios, inscrições e contatos).
+  * Criada uma barra de busca e filtros rápidos integrados.
+  * Adicionado um modal lateral (slide-over) para detalhar as informações de cada aluno, com atalho para enviar e-mail de resposta instantaneamente.
+  * Atualizado o código do Google Apps Script com o método `doGet(e)` para puxar os dados do Sheets de forma segura por meio de senha.
+
+### 5. Deploy no Railway
 * **Status:** O site foi estruturado de forma 100% estática e limpa.
 * **Comportamento no Railway:** Ao ler o repositório, o Railway (via Nixpacks/Railpack) identifica automaticamente o arquivo `index.html` na raiz do projeto e implanta um servidor **NGINX** otimizado para servir o site estático com o menor consumo de RAM possível.

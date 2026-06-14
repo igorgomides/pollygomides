@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Polly Gomides | Painel Administrativo</title>
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Plus Jakarta Sans Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif']
+          },
+          colors: {
+            brand: {
+              orange: '#FF5A1F',
+              darkOrange: '#E04810',
+              darkGray: '#1F2421',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    /* Custom animations & glassmorphism */
+    .glass {
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 90, 31, 0.1);
+    }
+    .text-glow-orange {
+      text-shadow: 0 0 20px rgba(255, 90, 31, 0.35);
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+    .animate-shake {
+      animation: shake 0.3s ease-in-out;
+    }
+  </style>
+</head>
+<body class="h-full antialiased font-sans flex flex-col">
+
+  <!-- LOGIN GATEWAY -->
+  <div id="login-gate" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950 px-6 transition-all duration-500">
+    <!-- Background glowing decorative circles -->
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-brand-orange/10 blur-[120px] pointer-events-none"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-orange-600/5 blur-[120px] pointer-events-none"></div>
+    
+    <div class="w-full max-w-md glass p-8 rounded-3xl shadow-2xl relative">
+      <!-- Title -->
+      <div class="text-center mb-8">
+        <div class="h-14 w-14 bg-brand-orange text-white rounded-2xl flex items-center justify-center shadow-lg font-extrabold text-2xl mx-auto mb-4 text-glow-orange">
+          PG
+        </div>
+        <h1 class="text-2xl font-extrabold tracking-tight">Painel Administrativo</h1>
+        <p class="text-slate-400 text-sm mt-1">Insira a senha de acesso para visualizar os dados</p>
+      </div>
+
+      <!-- Form -->
+      <form id="login-form" onsubmit="handleLoginSubmit(event)" class="space-y-6">
+        <div>
+          <label for="admin-password" class="block text-xs uppercase tracking-wider font-bold text-slate-400 mb-2">Senha de Acesso</label>
+          <input type="password" id="admin-password" required class="w-full px-4 py-3.5 bg-slate-900 border border-slate-800 focus:border-brand-orange rounded-xl text-sm outline-none transition-all text-white placeholder-slate-600" placeholder="••••••••••••">
+        </div>
+        
+        <div id="login-error" class="text-red-500 text-xs font-bold hidden flex items-center gap-1.5">
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+          Senha incorreta ou erro de conexão.
+        </div>
+
+        <button type="submit" class="w-full py-4 bg-brand-orange text-white rounded-xl font-bold hover:bg-brand-darkOrange transition-all shadow-md text-sm flex items-center justify-center gap-2">
+          Acessar Console
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- DASHBOARD WRAPPER (Hidden initially) -->
+  <div id="dashboard" class="hidden flex-1 flex flex-col overflow-hidden bg-slate-950">
+    
+    <!-- Top Navbar -->
+    <header class="border-b border-slate-900 bg-slate-950/80 backdrop-blur-md sticky top-0 z-30 px-6 lg:px-8 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span class="h-9 w-9 bg-brand-orange text-white rounded-xl flex items-center justify-center shadow-md font-extrabold text-lg text-glow-orange">
+          PG
+        </span>
+        <div>
+          <h2 class="font-extrabold text-sm tracking-tight text-white">Polly Gomides</h2>
+          <p class="text-[10px] text-brand-orange font-bold uppercase tracking-wider">Admin Console</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <!-- Refresh Button -->
+        <button onclick="fetchData()" class="p-2.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 rounded-xl transition-all" title="Atualizar Dados">
+          <svg id="refresh-icon" class="h-4 w-4 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.228 9H18.9" />
+          </svg>
+        </button>
+        <!-- Logout Button -->
+        <button onclick="handleLogout()" class="px-4 py-2 bg-slate-900 hover:bg-red-950/30 text-slate-400 hover:text-red-400 border border-slate-800 hover:border-red-900/40 rounded-xl transition-all text-xs font-semibold">
+          Sair
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 overflow-y-auto p-6 lg:p-8 space-y-8 max-w-7xl mx-auto w-full">
+      
+      <!-- Stats Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Total Registrations Card -->
+        <div class="glass p-6 rounded-3xl flex items-center gap-5 hover:scale-[1.01] transition-transform duration-300">
+          <div class="h-12 w-12 rounded-2xl bg-brand-orange/10 flex items-center justify-center text-brand-orange">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </div>
+          <div>
+            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total Acumulado</p>
+            <p id="stat-total" class="text-3xl font-extrabold text-white mt-1">0</p>
+          </div>
+        </div>
+
+        <!-- Enrollments Card -->
+        <div class="glass p-6 rounded-3xl flex items-center gap-5 hover:scale-[1.01] transition-transform duration-300">
+          <div class="h-12 w-12 rounded-2xl bg-orange-600/10 flex items-center justify-center text-orange-500">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+            </svg>
+          </div>
+          <div>
+            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Inscrições</p>
+            <p id="stat-enrolls" class="text-3xl font-extrabold text-white mt-1">0</p>
+          </div>
+        </div>
+
+        <!-- Contacts Card -->
+        <div class="glass p-6 rounded-3xl flex items-center gap-5 hover:scale-[1.01] transition-transform duration-300">
+          <div class="h-12 w-12 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-400">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+          </div>
+          <div>
+            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Contatos</p>
+            <p id="stat-contacts" class="text-3xl font-extrabold text-white mt-1">0</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters, Search and Actions Panel -->
+      <div class="glass p-6 rounded-3xl space-y-4">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          
+          <!-- Search Bar -->
+          <div class="relative flex-1">
+            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+              <svg class="h-4.5 w-4.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </span>
+            <input type="text" id="search-input" oninput="applyFilters()" class="w-full pl-10 pr-4 py-3 bg-slate-900 border border-slate-800 focus:border-brand-orange rounded-xl text-sm outline-none text-white placeholder-slate-500" placeholder="Buscar por nome, e-mail, curso ou mensagem...">
+          </div>
+
+          <!-- Type Filters -->
+          <div class="flex items-center gap-2 bg-slate-900 p-1.5 rounded-xl border border-slate-800 shrink-0">
+            <button onclick="setFilterType('ALL')" id="btn-filter-all" class="px-4 py-2 text-xs font-bold rounded-lg transition-all bg-brand-orange text-white">Todos</button>
+            <button onclick="setFilterType('Inscrição')" id="btn-filter-enroll" class="px-4 py-2 text-xs font-bold rounded-lg transition-all text-slate-400 hover:text-white">Inscrições</button>
+            <button onclick="setFilterType('Contato')" id="btn-filter-contact" class="px-4 py-2 text-xs font-bold rounded-lg transition-all text-slate-400 hover:text-white">Contatos</button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Table Section -->
+      <div class="glass rounded-3xl overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-slate-900 bg-slate-950/40 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                <th class="py-4 px-6">Data</th>
+                <th class="py-4 px-6">Tipo</th>
+                <th class="py-4 px-6">Nome</th>
+                <th class="py-4 px-6">Email</th>
+                <th class="py-4 px-6">Assunto/Curso</th>
+                <th class="py-4 px-6 text-right">Ação</th>
+              </tr>
+            </thead>
+            <tbody id="table-body" class="text-sm divide-y divide-slate-900/60 bg-slate-900/10">
+              <!-- Content loaded dynamically -->
+              <tr>
+                <td colspan="6" class="text-center py-12 text-slate-500">
+                  <div class="flex flex-col items-center gap-3">
+                    <svg class="animate-spin h-6 w-6 text-brand-orange" fill="none" viewBox="0 0 24 24">
+                      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Carregando dados da planilha...
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Empty state -->
+        <div id="empty-state" class="hidden text-center py-16 text-slate-500">
+          <svg class="mx-auto h-12 w-12 text-slate-700 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+          </svg>
+          <h3 class="text-base font-bold text-slate-300">Nenhum registro encontrado</h3>
+          <p class="text-xs text-slate-500 mt-1">Tente ajustar a busca ou os filtros de tipo.</p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- DETAILS MODAL (Slide-over/Panel) -->
+  <div id="detail-modal" class="fixed inset-0 z-40 hidden flex items-center justify-end bg-black/60 backdrop-blur-sm transition-opacity duration-300">
+    <div class="h-full w-full max-w-lg bg-slate-900 border-l border-slate-800 shadow-2xl flex flex-col justify-between transform translate-x-full transition-transform duration-300 relative">
+      
+      <!-- Modal Header -->
+      <div class="p-6 border-b border-slate-850 flex items-center justify-between bg-slate-950/40">
+        <div>
+          <h3 class="font-extrabold text-white text-lg">Detalhes do Registro</h3>
+          <p id="detail-date" class="text-xs text-slate-500 mt-1">Carregando...</p>
+        </div>
+        <button onclick="closeDetailModal()" class="p-2 bg-slate-800 hover:bg-slate-700 rounded-full text-slate-400 hover:text-white transition-colors">
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="flex-1 overflow-y-auto p-6 space-y-6">
+        
+        <!-- Type Badge -->
+        <div>
+          <span class="text-xs uppercase tracking-wider font-bold text-slate-500 block mb-2">Tipo de Entrada</span>
+          <span id="detail-type" class="px-3 py-1 text-xs font-bold rounded-full"></span>
+        </div>
+
+        <!-- Name -->
+        <div>
+          <span class="text-xs uppercase tracking-wider font-bold text-slate-500 block mb-1">Nome Completo</span>
+          <p id="detail-name" class="text-base font-bold text-white"></p>
+        </div>
+
+        <!-- Email -->
+        <div>
+          <span class="text-xs uppercase tracking-wider font-bold text-slate-500 block mb-1">E-mail</span>
+          <a id="detail-email-link" href="#" class="text-brand-orange hover:underline text-sm font-semibold flex items-center gap-1.5 w-fit">
+            <span id="detail-email"></span>
+            <svg class="h-4.5 w-4.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Course / Subject -->
+        <div id="detail-course-container">
+          <span id="detail-course-label" class="text-xs uppercase tracking-wider font-bold text-slate-500 block mb-1">Curso Escolhido</span>
+          <p id="detail-course" class="text-sm font-semibold text-white"></p>
+        </div>
+
+        <!-- Payment Plan -->
+        <div id="detail-payment-container">
+          <span class="text-xs uppercase tracking-wider font-bold text-slate-500 block mb-1">Plano de Pagamento</span>
+          <p id="detail-payment" class="text-sm font-semibold text-white"></p>
+        </div>
+
+        <!-- Message / Notes -->
+        <div>
+          <span id="detail-message-label" class="text-xs uppercase tracking-wider font-bold text-slate-500 block mb-2">Mensagem/Objetivos</span>
+          <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 text-sm leading-relaxed text-slate-300 max-h-60 overflow-y-auto whitespace-pre-wrap" id="detail-message"></div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-6 border-t border-slate-850 bg-slate-950/40 text-center">
+        <a id="detail-email-cta" href="#" class="inline-flex items-center justify-center gap-2 w-full py-3.5 bg-brand-orange text-white rounded-xl font-bold hover:bg-brand-darkOrange transition-all text-sm">
+          Responder por E-mail
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT CODE -->
+  <script>
+    // Configurações Globais
+    const API_URL = 'https://script.google.com/macros/s/AKfycbzCNEjF50Pjdqg4pshWDpP29_XGRQbFBZnEBaB7vtkwIFydmc5bZOwAyCPWyvwzaiyo/exec';
+    let rawData = [];
+    let currentFilterType = 'ALL';
+
+    // Auto login check based on sessionStorage
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedPassword = sessionStorage.getItem('adminPassword');
+      if (savedPassword) {
+        document.getElementById('admin-password').value = savedPassword;
+        validateAccess(savedPassword);
+      }
+    });
+
+    // Handle password gate submit
+    function handleLoginSubmit(event) {
+      event.preventDefault();
+      const passwordField = document.getElementById('admin-password');
+      const password = passwordField.value;
+      validateAccess(password);
+    }
+
+    // Connects to Apps Script doGet to validate password & pull data
+    function validateAccess(password) {
+      const errorLabel = document.getElementById('login-error');
+      const formCard = document.querySelector('#login-gate .glass');
+      const submitBtn = document.querySelector('#login-form button[type="submit"]');
+
+      errorLabel.classList.add('hidden');
+      formCard.classList.remove('animate-shake');
+      
+      const originalText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = 'Verificando...';
+
+      fetch(`${API_URL}?password=${encodeURIComponent(password)}`)
+        .then(response => response.json())
+        .then(res => {
+          if (res.status === 'success') {
+            // Save password in session storage so it persists temporarily
+            sessionStorage.setItem('adminPassword', password);
+            
+            // Transition screens
+            const loginGate = document.getElementById('login-gate');
+            loginGate.classList.add('opacity-0');
+            setTimeout(() => {
+              loginGate.classList.add('hidden');
+              document.getElementById('dashboard').classList.remove('hidden');
+              
+              // Load retrieved data
+              rawData = res.data || [];
+              processStats();
+              renderTable(rawData);
+            }, 300);
+          } else {
+            throw new Error('Senha incorreta');
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          errorLabel.classList.remove('hidden');
+          formCard.classList.add('animate-shake');
+        })
+        .finally(() => {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalText;
+        });
+    }
+
+    // Handles logout logic
+    function handleLogout() {
+      sessionStorage.removeItem('adminPassword');
+      location.reload();
+    }
+
+    // Fetches fresh data
+    function fetchData() {
+      const password = sessionStorage.getItem('adminPassword');
+      if (!password) return;
+
+      const refreshBtn = document.querySelector('header button');
+      const refreshIcon = document.getElementById('refresh-icon');
+      
+      refreshIcon.classList.add('animate-spin');
+      refreshBtn.disabled = true;
+
+      fetch(`${API_URL}?password=${encodeURIComponent(password)}`)
+        .then(response => response.json())
+        .then(res => {
+          if (res.status === 'success') {
+            rawData = res.data || [];
+            processStats();
+            applyFilters();
+          }
+        })
+        .catch(err => console.error(err))
+        .finally(() => {
+          refreshIcon.classList.remove('animate-spin');
+          refreshBtn.disabled = false;
+        });
+    }
+
+    // Counts totals
+    function processStats() {
+      const total = rawData.length;
+      const enrolls = rawData.filter(d => d.type === 'Inscrição').length;
+      const contacts = rawData.filter(d => d.type === 'Contato').length;
+
+      document.getElementById('stat-total').textContent = total;
+      document.getElementById('stat-enrolls').textContent = enrolls;
+      document.getElementById('stat-contacts').textContent = contacts;
+    }
+
+    // Filters types
+    function setFilterType(type) {
+      currentFilterType = type;
+      
+      // Update Button Styles
+      const btnAll = document.getElementById('btn-filter-all');
+      const btnEnroll = document.getElementById('btn-filter-enroll');
+      const btnContact = document.getElementById('btn-filter-contact');
+
+      [btnAll, btnEnroll, btnContact].forEach(btn => {
+        btn.classList.remove('bg-brand-orange', 'text-white');
+        btn.classList.add('text-slate-400', 'hover:text-white');
+      });
+
+      if (type === 'ALL') {
+        btnAll.classList.add('bg-brand-orange', 'text-white');
+        btnAll.classList.remove('text-slate-400');
+      } else if (type === 'Inscrição') {
+        btnEnroll.classList.add('bg-brand-orange', 'text-white');
+        btnEnroll.classList.remove('text-slate-400');
+      } else if (type === 'Contato') {
+        btnContact.classList.add('bg-brand-orange', 'text-white');
+        btnContact.classList.remove('text-slate-400');
+      }
+
+      applyFilters();
+    }
+
+    // Applies filters & search
+    function applyFilters() {
+      const searchQuery = document.getElementById('search-input').value.toLowerCase().trim();
+      
+      let filteredData = rawData;
+
+      // Type Filter
+      if (currentFilterType !== 'ALL') {
+        filteredData = filteredData.filter(item => item.type === currentFilterType);
+      }
+
+      // Search Query Filter
+      if (searchQuery !== '') {
+        filteredData = filteredData.filter(item => {
+          const name = (item.name || '').toLowerCase();
+          const email = (item.email || '').toLowerCase();
+          const course = (item.course || '').toLowerCase();
+          const message = (item.message || '').toLowerCase();
+          
+          return name.includes(searchQuery) || 
+                 email.includes(searchQuery) || 
+                 course.includes(searchQuery) || 
+                 message.includes(searchQuery);
+        });
+      }
+
+      renderTable(filteredData);
+    }
+
+    // Formats dates beautifully
+    function formatDate(rawDateStr) {
+      if (!rawDateStr) return '-';
+      try {
+        const d = new Date(rawDateStr);
+        if (isNaN(d.getTime())) return rawDateStr.split('T')[0]; // fallback
+        
+        const day = String(d.getDate()).padStart(2, '0');
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const year = d.getFullYear();
+        const hour = String(d.getHours()).padStart(2, '0');
+        const min = String(d.getMinutes()).padStart(2, '0');
+        
+        return `${day}/${month}/${year} ${hour}:${min}`;
+      } catch (e) {
+        return rawDateStr;
+      }
+    }
+
+    // Renders table rows
+    function renderTable(dataList) {
+      const tbody = document.getElementById('table-body');
+      const emptyState = document.getElementById('empty-state');
+      
+      tbody.innerHTML = '';
+      
+      if (dataList.length === 0) {
+        emptyState.classList.remove('hidden');
+        return;
+      }
+      
+      emptyState.classList.add('hidden');
+
+      dataList.forEach((item, index) => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-900/40 border-b border-slate-900/60 transition-colors cursor-pointer';
+        tr.onclick = (e) => {
+          // Prevent modal opening when clicking directly on email links
+          if (e.target.tagName !== 'A') {
+            openDetailModal(item);
+          }
+        };
+
+        const typeBadgeClass = item.type === 'Inscrição' 
+          ? 'bg-orange-500/10 text-orange-400 border border-orange-500/20' 
+          : 'bg-blue-500/10 text-blue-400 border border-blue-500/20';
+
+        tr.innerHTML = `
+          <td class="py-4 px-6 font-medium text-slate-300 text-xs">${formatDate(item.date)}</td>
+          <td class="py-4 px-6">
+            <span class="px-2.5 py-1 text-[10px] font-bold uppercase rounded-full ${typeBadgeClass}">
+              ${item.type}
+            </span>
+          </td>
+          <td class="py-4 px-6 font-semibold text-white text-sm">${item.name}</td>
+          <td class="py-4 px-6">
+            <a href="mailto:${item.email}" class="text-slate-400 hover:text-brand-orange hover:underline transition-colors text-xs font-medium">
+              ${item.email}
+            </a>
+          </td>
+          <td class="py-4 px-6 text-slate-300 text-xs truncate max-w-[200px]" title="${item.course}">
+            ${item.course || '-'}
+          </td>
+          <td class="py-4 px-6 text-right">
+            <button class="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-850 hover:text-white border border-slate-800 rounded-lg text-xs font-semibold text-slate-300 transition-colors">
+              Ver
+            </button>
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Modal Control logic
+    const detailModal = document.getElementById('detail-modal');
+    const detailModalContainer = detailModal.querySelector('.transform');
+
+    function openDetailModal(item) {
+      // Set values
+      document.getElementById('detail-date').textContent = formatDate(item.date);
+      document.getElementById('detail-name').textContent = item.name;
+      document.getElementById('detail-email').textContent = item.email;
+      document.getElementById('detail-email-link').href = `mailto:${item.email}`;
+      document.getElementById('detail-email-cta').href = `mailto:${item.email}?subject=Sobre sua mensagem no site Polly Gomides`;
+
+      const typeBadge = document.getElementById('detail-type');
+      typeBadge.textContent = item.type;
+      if (item.type === 'Inscrição') {
+        typeBadge.className = 'px-3 py-1 text-xs font-bold rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/20';
+        
+        // Show fields related to course enrollment
+        document.getElementById('detail-course-container').classList.remove('hidden');
+        document.getElementById('detail-payment-container').classList.remove('hidden');
+        document.getElementById('detail-course-label').textContent = 'Curso Escolhido';
+        document.getElementById('detail-course').textContent = item.course;
+        document.getElementById('detail-payment').textContent = item.payment_plan || '-';
+        document.getElementById('detail-message-label').textContent = 'Nível de Inglês e Objetivos';
+        document.getElementById('detail-message').textContent = item.message || 'Nenhum detalhe informado.';
+      } else {
+        typeBadge.className = 'px-3 py-1 text-xs font-bold rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20';
+        
+        // Hide/Adapt fields for contact inquiries
+        document.getElementById('detail-course-container').classList.remove('hidden');
+        document.getElementById('detail-course-label').textContent = 'Assunto do Contato';
+        document.getElementById('detail-course').textContent = item.course || 'Sem assunto';
+        document.getElementById('detail-payment-container').classList.add('hidden');
+        document.getElementById('detail-message-label').textContent = 'Mensagem de Contato';
+        document.getElementById('detail-message').textContent = item.message || 'Mensagem em branco.';
+      }
+
+      // Open animations
+      detailModal.classList.remove('hidden');
+      setTimeout(() => {
+        detailModal.classList.remove('opacity-0');
+        detailModalContainer.classList.remove('translate-x-full');
+        detailModalContainer.classList.add('translate-x-0');
+      }, 50);
+    }
+
+    function closeDetailModal() {
+      // Close animations
+      detailModalContainer.classList.remove('translate-x-0');
+      detailModalContainer.classList.add('translate-x-full');
+      setTimeout(() => {
+        detailModal.classList.add('hidden');
+      }, 300);
+    }
+
+    // Modal click out to close
+    detailModal.addEventListener('click', (e) => {
+      if (e.target === detailModal) {
+        closeDetailModal();
+      }
+    });
+  </script>
+</body>
+</html>
