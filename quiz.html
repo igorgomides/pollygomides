@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teste de Nível de Inglês | Polly Gomides ESL Mentorship</title>
+  <meta name="description" content="Descubra seu nível de inglês (A1 a C2) em cerca de 7 minutos com nosso quiz interativo de 28 perguntas elaboradas para testar gramática, vocabulário e expressões.">
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Plus Jakarta Sans Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              orange: '#FF5A1F',
+              darkOrange: '#E04810',
+              lightOrange: '#FFF0EA',
+              navy: '#0A192F',
+              muted: '#6C757D',
+              lightGray: '#F8F9FA',
+              accent: '#E65100'
+            }
+          },
+          boxShadow: {
+            custom: '0 10px 30px -10px rgba(255, 90, 31, 0.15)',
+            'custom-hover': '0 20px 40px -15px rgba(255, 90, 31, 0.3)',
+            card: '0 4px 20px rgba(10, 25, 47, 0.05)'
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+  
+  <style>
+    .text-glow {
+      text-shadow: 0 0 20px rgba(255, 90, 31, 0.25);
+    }
+    .custom-gradient {
+      background: radial-gradient(circle at 10% 20%, rgba(255, 90, 31, 0.04) 0%, rgba(10, 25, 47, 0) 100%), #ffffff;
+    }
+  </style>
+</head>
+<body class="custom-gradient text-brand-navy font-sans antialiased min-h-screen flex flex-col justify-between">
+
+  <!-- Header / Navigation -->
+  <header class="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 left-0 w-full z-40">
+    <div class="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="index.html" class="text-xl font-extrabold text-brand-navy tracking-tight flex items-center gap-2">
+        Polly <span class="text-brand-orange">Gomides</span>
+      </a>
+      
+      <a href="index.html" class="flex items-center gap-2 text-sm font-semibold text-brand-navy/80 hover:text-brand-orange transition-colors">
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Voltar ao Site
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="max-w-3xl mx-auto px-6 py-12 flex-grow w-full flex items-center justify-center">
+    
+    <!-- Welcome/Intro Card -->
+    <div id="intro-card" class="bg-white p-8 md:p-12 rounded-3xl border border-gray-100 shadow-card w-full transition-all duration-300">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-lightOrange text-brand-orange font-semibold text-xs uppercase tracking-wider mb-6 border border-brand-orange/20 shadow-sm">
+        <span class="flex h-2 w-2 rounded-full bg-brand-orange"></span>
+        Assessoria de Nivelamento
+      </div>
+      
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-4">
+        English Level <span class="text-brand-orange text-glow">Assessment</span>
+      </h1>
+      
+      <p class="text-brand-muted text-base mb-8 leading-relaxed">
+        Descubra seu nível exato de inglês com base no Quadro Europeu Comum de Referência para Línguas (CEFR). O teste possui <strong>28 perguntas</strong> e levará aproximadamente <strong>7 minutos</strong>.
+      </p>
+
+      <form id="intro-form" onsubmit="startQuiz(event)" class="space-y-5">
+        <div>
+          <label for="user-name" class="block text-xs uppercase tracking-wider font-bold text-brand-muted mb-2">Seu Nome Completo</label>
+          <input type="text" id="user-name" required class="w-full px-4 py-3 bg-brand-lightGray border border-gray-100 focus:border-brand-orange focus:bg-white rounded-xl text-sm outline-none transition-all" placeholder="Como quer ser chamado?">
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div>
+            <label for="user-email" class="block text-xs uppercase tracking-wider font-bold text-brand-muted mb-2">E-mail</label>
+            <input type="email" id="user-email" required class="w-full px-4 py-3 bg-brand-lightGray border border-gray-100 focus:border-brand-orange focus:bg-white rounded-xl text-sm outline-none transition-all" placeholder="exemplo@email.com">
+          </div>
+          <div>
+            <label for="user-phone" class="block text-xs uppercase tracking-wider font-bold text-brand-muted mb-2">WhatsApp / Telefone</label>
+            <input type="tel" id="user-phone" required class="w-full px-4 py-3 bg-brand-lightGray border border-gray-100 focus:border-brand-orange focus:bg-white rounded-xl text-sm outline-none transition-all" placeholder="(00) 90000-0000">
+          </div>
+        </div>
+
+        <div class="pt-4">
+          <button type="submit" class="w-full py-4 bg-brand-orange text-white rounded-2xl font-bold text-base hover:bg-brand-darkOrange hover:-translate-y-0.5 shadow-custom hover:shadow-custom-hover transition-all duration-300 flex items-center justify-center gap-2 group">
+            Começar Avaliação
+            <svg class="h-5 w-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Quiz Card (Hidden initially) -->
+    <div id="quiz-card" class="bg-white p-6 md:p-10 rounded-3xl border border-gray-100 shadow-card w-full hidden transition-all duration-300">
+      <!-- Top info bar -->
+      <div class="flex items-center justify-between border-b border-gray-50 pb-5 mb-6 text-sm text-brand-muted font-medium">
+        <div class="flex items-center gap-2">
+          <span class="text-brand-orange font-bold">Questão</span>
+          <span id="question-counter" class="bg-brand-lightOrange text-brand-orange px-2 py-0.5 rounded-md text-xs font-bold">1 / 28</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <svg class="h-4 w-4 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span id="quiz-timer">00:00</span>
+        </div>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="w-full bg-gray-100 h-1.5 rounded-full mb-8 overflow-hidden">
+        <div id="progress-bar" class="bg-brand-orange h-full rounded-full transition-all duration-300" style="width: 3.57%"></div>
+      </div>
+
+      <!-- Question Text -->
+      <h2 id="question-text" class="text-xl font-bold text-brand-navy mb-8 leading-snug">
+        Loading question...
+      </h2>
+
+      <!-- Options Container -->
+      <div id="options-container" class="space-y-3.5 mb-8">
+        <!-- Dynamic Options here -->
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center justify-between border-t border-gray-50 pt-6">
+        <button id="btn-prev" onclick="prevQuestion()" disabled class="px-5 py-3 border border-gray-100 hover:border-brand-orange text-brand-navy hover:text-brand-orange rounded-xl font-semibold text-sm transition-all disabled:opacity-30 disabled:pointer-events-none flex items-center gap-1.5">
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+          Anterior
+        </button>
+        <button id="btn-next" onclick="nextQuestion()" disabled class="px-6 py-3 bg-brand-orange text-white rounded-xl font-bold text-sm hover:bg-brand-darkOrange disabled:opacity-40 disabled:pointer-events-none transition-all flex items-center gap-1.5">
+          Próxima
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Results Card (Hidden initially) -->
+    <div id="results-card" class="bg-white p-8 md:p-12 rounded-3xl border border-gray-100 shadow-card w-full hidden text-center transition-all duration-300">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-lightOrange text-brand-orange font-semibold text-xs uppercase tracking-wider mb-6 border border-brand-orange/20 shadow-sm">
+        🎉 Avaliação Concluída!
+      </div>
+      
+      <h2 class="text-2xl md:text-3xl font-extrabold text-brand-navy mb-1.5">Parabéns, <span id="res-user-name" class="text-brand-orange">Aluno</span>!</h2>
+      <p class="text-brand-muted text-sm mb-8">Aqui está o seu diagnóstico de proficiência em inglês.</p>
+
+      <!-- Score Ring & Level -->
+      <div class="flex flex-col items-center justify-center mb-8">
+        <div class="relative flex items-center justify-center w-36 h-36 rounded-full bg-brand-lightOrange border-4 border-brand-orange/20 shadow-sm mb-4">
+          <div class="text-center">
+            <span id="res-score" class="text-4xl font-extrabold text-brand-orange">0</span>
+            <span class="text-brand-muted block text-xs font-bold uppercase tracking-wider mt-0.5">de 28 acertos</span>
+          </div>
+        </div>
+        <div class="px-5 py-2.5 rounded-2xl bg-brand-navy text-white font-extrabold text-lg tracking-wide shadow-md">
+          Nível: <span id="res-level" class="text-brand-orange text-glow">A1</span>
+        </div>
+      </div>
+
+      <!-- Level Description Info -->
+      <div class="bg-brand-lightGray p-6 rounded-2xl border border-gray-100 text-left mb-8 max-w-xl mx-auto">
+        <h3 id="level-title" class="font-extrabold text-base mb-2">Iniciante (A1)</h3>
+        <p id="level-desc" class="text-sm text-brand-muted leading-relaxed">
+          Você consegue compreender e utilizar expressões familiares do dia a dia e frases extremamente simples direcionadas à satisfação de necessidades básicas.
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="space-y-4 max-w-md mx-auto">
+        <a id="whatsapp-btn" href="#" target="_blank" class="w-full py-4 bg-brand-orange text-white rounded-2xl font-bold text-base hover:bg-brand-darkOrange hover:-translate-y-0.5 shadow-custom hover:shadow-custom-hover transition-all duration-300 flex items-center justify-center gap-2 group">
+          Enviar Resultado para Polly no WhatsApp
+          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 001.333 4.982L2 22l5.233-1.371a9.936 9.936 0 004.779 1.22h.005c5.505 0 9.988-4.478 9.989-9.984 0-2.669-1.037-5.176-2.922-7.062A9.925 9.925 0 0012.012 2zm5.72 13.882c-.313.884-1.802 1.726-2.484 1.831-.603.093-1.258.118-2.639-.379-1.921-.692-3.376-2.529-4.223-3.666l-.105-.145c-.08-.109-.597-.803-.597-1.533 0-.73.38-1.088.517-1.24.1-.11.267-.179.412-.179.083 0 .162.003.23.007.155.006.312-.016.452.328.175.43.597 1.464.647 1.567.05.103.083.224.017.357-.066.133-.1.224-.2.34-.1.116-.21.26-.3.37-.101.123-.207.257-.089.46.12.207.533.882 1.144 1.427.787.7 1.448.917 1.653 1.002.206.085.326.07.447-.07.12-.14.516-.601.654-.805.137-.204.276-.17.464-.1.189.07 1.2.568 1.407.671.206.103.344.155.396.241.052.086.052.496-.08.973z"/>
+          </svg>
+        </a>
+        
+        <a href="index.html" class="block w-full py-4 border border-gray-200 text-brand-navy rounded-2xl font-semibold text-base hover:bg-gray-50 transition-all text-center">
+          Voltar para a Página Inicial
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-100 py-6 bg-brand-lightGray/50 text-center text-xs text-brand-muted">
+    <div class="max-w-5xl mx-auto px-6">
+      &copy; 2026 Polly Gomides ESL Mentorship. Todos os direitos reservados.
+    </div>
+  </footer>
+
+  <!-- Quiz Logic Script -->
+  <script>
+    // Database of questions
+    const questions = [
+      {
+        q: "_________ cousins do you have?",
+        options: ["How more", "How", "How much", "How many"],
+        correct: 3
+      },
+      {
+        q: "Qual é a forma interrogativa correta para a frase: \"She is Canadian.\"? (Nota: Identifique a estrutura gramatical correta)",
+        options: ["Is she Canadian?", "She is Canadian?", "Where is she from?", "Are you Canadian?"],
+        correct: 0
+      },
+      {
+        q: "I got a ___________ purse for my birthday.",
+        options: ["beautiful leather Italian", "Italian leather beautiful", "beautiful Italian leather", "leather Italian beautiful"],
+        correct: 2
+      },
+      {
+        q: "Where _____ her father work?",
+        options: ["is", "are", "does", "do"],
+        correct: 2
+      },
+      {
+        q: "Vintage clothes _________ in that shop.",
+        options: ["is selling", "were sold", "are sold", "is sold"],
+        correct: 2
+      },
+      {
+        q: "When I last spoke to her she _________ about moving abroad.",
+        options: ["had thinking", "had be thinking", "will be thinking", "was thinking"],
+        correct: 3
+      },
+      {
+        q: "He's the man ___ works in the store.",
+        options: ["what", "that", "whose", "who"],
+        correct: 3
+      },
+      {
+        q: "I spoke to him twice yesterday, but we _________ spoken today.",
+        options: ["don't speak", "didn't spoke", "haven't spoken", "not speak"],
+        correct: 2
+      },
+      {
+        q: "Your cell phone is very old; you ___ buy a new one.",
+        options: ["must to", "have to", "should to", "should"],
+        correct: 3
+      },
+      {
+        q: "My boss called me after I ___ the office.",
+        options: ["had been leaving", "had left", "was left", "was leaving"],
+        correct: 1
+      },
+      {
+        q: "They arrived early ___ they would get good seats.",
+        options: ["as though", "in order", "so as", "so that"],
+        correct: 3
+      },
+      {
+        q: "We ___ here before!",
+        options: ["had being", "had ever been", "had been never", "had never been"],
+        correct: 3
+      },
+      {
+        q: "Wow, it’s almost three in the morning. It’s about time ___ home.",
+        options: ["we went", "we went to", "we had gone", "we were to"],
+        correct: 0
+      },
+      {
+        q: "My brother ___ the guitar since he was seven years old.",
+        options: ["has been to play", "was playing", "has been playing", "has playing"],
+        correct: 2
+      },
+      {
+        q: "Greece *appealed to* Europe for financial assistance. (Qual é o sinônimo da expressão destacada?)",
+        options: ["Attracted European tourists.", "Asked for help.", "Begged for financial comprehension", "Accepted aid."],
+        correct: 1
+      },
+      {
+        q: "___ I would have told him exactly what I thought of him.",
+        options: ["Had you been me,", "Had I been you,", "Had she been you,", "Had you been him,"],
+        correct: 1
+      },
+      {
+        q: "Can you stop at the drugstore please, Peter? We are _____________ aspirin.",
+        options: ["running out of", "running out for", "running down of", "running away in"],
+        correct: 0
+      },
+      {
+        q: "Lisa can't come. She's ___ busy.",
+        options: ["enough", "too much", "too", "much"],
+        correct: 2
+      },
+      {
+        q: "Only if they study for the test ___ they do well.",
+        options: ["will they", "they will", "they can", "they have to"],
+        correct: 0
+      },
+      {
+        q: "The house was perfect for them. It suited them ___.",
+        options: ["until Z", "with at", "to a T", "from A-Z"],
+        correct: 2
+      },
+      {
+        q: "Tom and his father both have light blue eyes. Tom ______ his father.",
+        options: ["takes up", "takes after", "takes down", "takes off"],
+        correct: 1
+      },
+      {
+        q: "We lost 3 hours work because of the power cut, we’ll have to _____________ .",
+        options: ["make off the time", "make on the time", "make up the time", "make in the time"],
+        correct: 2
+      },
+      {
+        q: "She got fired again! Well, it _____________ , she should have been more responsible!",
+        options: ["serves her well", "serves her up", "serves her right", "serves her left"],
+        correct: 2
+      },
+      {
+        q: "I took him out to dinner because he had _________________ .",
+        options: ["given me a good turn", "made me a good turn", "made me a big favor", "done me a big favor"],
+        correct: 3
+      },
+      {
+        q: "Losing 4 – 0 at half-time, their loss was a _________ conclusion.",
+        options: ["doomed", "stamped", "finalized", "foregone"],
+        correct: 3
+      },
+      {
+        q: "______________, you were very lucky to have gotten off without any serious injuries.",
+        options: ["Everything considered", "All things accounted", "All accounted", "All things considered"],
+        correct: 3
+      },
+      {
+        q: "When the pickpocket attempted to steal her bag and she yanked it back, she did it without thinking. It was done on the ______ of the _______.",
+        options: ["blink/eye", "heat/second", "spur / moment", "stroke / hour"],
+        correct: 2
+      },
+      {
+        q: "It was ______ boring party that we left early.",
+        options: ["a so", "so", "such a", "a such"],
+        correct: 2
+      }
+    ];
+
+    let currentQuestionIndex = 0;
+    let selectedAnswers = new Array(questions.length).fill(null);
+    let userName = "";
+    let userEmail = "";
+    let userPhone = "";
+    
+    // Timer variables
+    let timerInterval = null;
+    let timerSeconds = 0;
+
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+      const secs = (seconds % 60).toString().padStart(2, '0');
+      return `${mins}:${secs}`;
+    }
+
+    function startTimer() {
+      timerSeconds = 0;
+      document.getElementById('quiz-timer').textContent = "00:00";
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timerSeconds++;
+        document.getElementById('quiz-timer').textContent = formatTime(timerSeconds);
+      }, 1000);
+    }
+
+    function stopTimer() {
+      clearInterval(timerInterval);
+    }
+
+    function startQuiz(event) {
+      event.preventDefault();
+      userName = document.getElementById('user-name').value;
+      userEmail = document.getElementById('user-email').value;
+      userPhone = document.getElementById('user-phone').value;
+      
+      document.getElementById('intro-card').classList.add('hidden');
+      document.getElementById('quiz-card').classList.remove('hidden');
+      
+      startTimer();
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const q = questions[currentQuestionIndex];
+      
+      // Update header info
+      document.getElementById('question-counter').textContent = `${currentQuestionIndex + 1} / ${questions.length}`;
+      const percentage = ((currentQuestionIndex + 1) / questions.length) * 100;
+      document.getElementById('progress-bar').style.width = `${percentage}%`;
+      
+      // Update text
+      document.getElementById('question-text').textContent = q.q;
+      
+      // Render options
+      const container = document.getElementById('options-container');
+      container.innerHTML = "";
+      
+      q.options.forEach((opt, idx) => {
+        const optionCard = document.createElement('button');
+        optionCard.type = "button";
+        optionCard.onclick = () => selectOption(idx);
+        
+        const isSelected = selectedAnswers[currentQuestionIndex] === idx;
+        
+        optionCard.className = `w-full text-left px-5 py-4 border rounded-2xl text-sm font-semibold transition-all duration-200 flex items-center justify-between ${
+          isSelected 
+          ? 'border-brand-orange bg-brand-lightOrange text-brand-orange shadow-sm scale-[1.01]' 
+          : 'border-gray-100 hover:border-brand-orange/40 hover:bg-brand-lightGray text-brand-navy'
+        }`;
+        
+        optionCard.innerHTML = `
+          <span>${opt}</span>
+          <div class="h-5 w-5 rounded-full border flex items-center justify-center transition-colors ${
+            isSelected 
+            ? 'border-brand-orange bg-brand-orange text-white' 
+            : 'border-gray-200 bg-white'
+          }">
+            ${isSelected ? `
+              <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            ` : ''}
+          </div>
+        `;
+        container.appendChild(optionCard);
+      });
+      
+      // Disable/enable action buttons
+      document.getElementById('btn-prev').disabled = currentQuestionIndex === 0;
+      
+      const nextBtn = document.getElementById('btn-next');
+      if (selectedAnswers[currentQuestionIndex] !== null) {
+        nextBtn.disabled = false;
+      } else {
+        nextBtn.disabled = true;
+      }
+      
+      // Change text for last question
+      if (currentQuestionIndex === questions.length - 1) {
+        nextBtn.innerHTML = `
+          Finalizar
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        `;
+      } else {
+        nextBtn.innerHTML = `
+          Próxima
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        `;
+      }
+    }
+
+    function selectOption(index) {
+      selectedAnswers[currentQuestionIndex] = index;
+      renderQuestion();
+    }
+
+    function prevQuestion() {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        renderQuestion();
+      }
+    }
+
+    function nextQuestion() {
+      if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        renderQuestion();
+      } else {
+        finishQuiz();
+      }
+    }
+
+    function getLevelInfo(score) {
+      if (score <= 5) {
+        return {
+          code: "A1",
+          name: "Iniciante (A1)",
+          desc: "Você consegue compreender e utilizar expressões familiares do dia a dia e frases extremamente simples direcionadas à satisfação de necessidades básicas."
+        };
+      } else if (score <= 10) {
+        return {
+          code: "A2",
+          name: "Básico (A2)",
+          desc: "Você consegue entender frases e expressões de uso frequente relacionadas a áreas imediatas, como informações pessoais, familiares, compras e trabalho."
+        };
+      } else if (score <= 15) {
+        return {
+          code: "B1",
+          name: "Intermediário (B1)",
+          desc: "Você consegue compreender os pontos principais em conversas sobre temas conhecidos e de trabalho. Consegue lidar com a maioria das situações de viagem e produzir textos simples."
+        };
+      } else if (score <= 20) {
+        return {
+          code: "B2",
+          name: "Pós-Intermediário (B2)",
+          desc: "Você consegue compreender ideias principais de textos complexos, incluindo discussões técnicas na sua especialidade. Consegue interagir de forma fluida sem tensão com nativos."
+        };
+      } else if (score <= 25) {
+        return {
+          code: "C1",
+          name: "Avançado (C1)",
+          desc: "Você compreende uma ampla variedade de textos longos e exigentes, reconhecendo significados implícitos. Consegue expressar-se de forma fluente e espontânea profissionalmente."
+        };
+      } else {
+        return {
+          code: "C2",
+          name: "Fluente/Proficiente (C2)",
+          desc: "Você compreende com facilidade tudo o que ouve ou lê. Consegue resumir informações de diferentes fontes e expressar-se com grande fluência e precisão em situações complexas."
+        };
+      }
+    }
+
+    function finishQuiz() {
+      stopTimer();
+      
+      // Calculate score
+      let score = 0;
+      selectedAnswers.forEach((ans, idx) => {
+        if (ans === questions[idx].correct) {
+          score++;
+        }
+      });
+      
+      const level = getLevelInfo(score);
+      
+      // Show results card
+      document.getElementById('quiz-card').classList.add('hidden');
+      document.getElementById('results-card').classList.remove('hidden');
+      
+      document.getElementById('res-user-name').textContent = userName;
+      document.getElementById('res-score').textContent = score;
+      document.getElementById('res-level').textContent = level.code;
+      document.getElementById('level-title').textContent = level.name;
+      document.getElementById('level-desc').textContent = level.desc;
+      
+      // Pre-fill Whatsapp message
+      const textMessage = encodeURIComponent(
+        `Olá Polly! Terminei meu teste de nivelamento de inglês.\n\n` +
+        `👤 *Nome:* ${userName}\n` +
+        `📧 *E-mail:* ${userEmail}\n` +
+        `📝 *Pontuação:* ${score}/28 acertos\n` +
+        `🏅 *Nível Diagnosticado:* ${level.name}\n` +
+        `⏱️ *Tempo de teste:* ${formatTime(timerSeconds)}\n\n` +
+        `Gostaria de agendar uma assessoria para entrar em uma turma!`
+      );
+      const waLink = `https://wa.me/5531988899888?text=${textMessage}`; // Replace with actual number if provided
+      document.getElementById('whatsapp-btn').href = waLink;
+
+      // Submit data to Google Sheets Apps Script Web App
+      const actionUrl = "https://script.google.com/macros/s/AKfycbzCNEjF50Pjdqg4pshWDpP29_XGRQbFBZnEBaB7vtkwIFydmc5bZOwAyCPWyvwzaiyo/exec";
+      
+      const payload = new URLSearchParams();
+      payload.append('action', 'level_test');
+      payload.append('name', userName);
+      payload.append('email', userEmail);
+      payload.append('phone', userPhone);
+      payload.append('score', score.toString());
+      payload.append('level', level.name);
+      payload.append('duration', formatTime(timerSeconds));
+
+      fetch(actionUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: payload.toString(),
+        mode: 'no-cors'
+      })
+      .then(() => {
+        console.log("Assessment data submitted successfully to Sheets web app.");
+      })
+      .catch(err => {
+        console.error("Error submitting assessment data:", err);
+      });
+    }
+  </script>
+</body>
+</html>
