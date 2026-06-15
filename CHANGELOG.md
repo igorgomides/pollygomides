@@ -106,3 +106,11 @@
 * **Solução:**
   * Geração de um novo logotipo profissional (`polly_logo.jpg`) mesclando a identidade visual da Polly Gomides com a bonequinha de mascote gerada pela IA, onde ela aparece sentada acima do nome.
   * Substituição do logotipo em texto pelo novo logotipo em imagem no cabeçalho das páginas [index.html](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/index.html) e [quiz.html](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/quiz.html) com efeito de mesclagem visual (`mix-blend-multiply`).
+
+### 14. Ajuste Visual do Logotipo (Tamanho, Posicionamento e Scroll)
+* **Mudança:** Redimensionamento, reposicionamento e alinhamento do logotipo no cabeçalho das páginas [index.html](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/index.html) e [quiz.html](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/quiz.html).
+* **Solução:**
+  * **Aumento da Logo e do Cabeçalho:** Aumentamos o tamanho inicial da logo em 50% (passando de `h-20` (80px) para `h-36` (144px) no desktop, e de `h-16` (64px) para `h-32` (128px) no mobile). Acompanhando esse aumento, a barra de navegação no topo foi expandida para `h-40` (160px) no desktop e `h-36` (144px) no mobile.
+  * **Alinhamento Centralizado com o Badge:** Aplicamos uma translação horizontal (`translate-x-20` correspondente a 80px) para que o centro do logotipo alinhe perfeitamente com o centro do badge de destaque "*Cohorts Open for Semester 2, 2026*".
+  * **Controle Dinâmico no Scroll (Correção de Transbordo):** Adicionamos transições suaves no scroll. Quando a página é rolada, o cabeçalho encolhe para um tamanho compacto (`h-20` / `h-24`) e a logo reduz para `h-16` / `h-20`, removendo dinamicamente o deslocamento vertical (`translate-y-0`) para evitar que a logo ultrapasse a borda inferior do cabeçalho reduzido.
+  * **Ajuste de Padding no Hero:** Expandimos o espaçamento superior da seção hero (`pt-44` / `md:pt-56`) para evitar a sobreposição com o cabeçalho inicial que ficou mais alto.
