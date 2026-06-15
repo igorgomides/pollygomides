@@ -54,12 +54,11 @@
 </head>
 <body class="custom-gradient text-brand-navy font-sans antialiased min-h-screen flex flex-col justify-between">
 
-  <!-- Header / Navigation -->
-  <header class="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 left-0 w-full z-40">
-    <div class="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
+  <header id="navbar" class="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 left-0 w-full z-40 transition-all duration-300">
+    <div id="navbar-container" class="max-w-5xl mx-auto px-6 h-24 md:h-28 flex items-center justify-between transition-all duration-300">
       <!-- Logo -->
       <a href="index.html" class="flex items-center gap-2">
-        <img src="polly_logo.jpg" alt="Polly Gomides Logo" class="h-16 md:h-20 w-auto mix-blend-multiply">
+        <img id="navbar-logo" src="polly_logo.jpg" alt="Polly Gomides Logo" class="h-20 md:h-24 w-auto mix-blend-multiply transition-all duration-300">
       </a>
       
       <a href="index.html" class="flex items-center gap-2 text-sm font-semibold text-brand-navy/80 hover:text-brand-orange transition-colors">
@@ -605,6 +604,32 @@
         console.error("Error submitting assessment data:", err);
       });
     }
+
+    // Navbar Scroll Shadow Effect and Height Transition
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      const navContainer = document.getElementById('navbar-container');
+      const navLogo = document.getElementById('navbar-logo');
+      if (window.scrollY > 20) {
+        navbar.classList.add('shadow-md', 'bg-white/95');
+        navbar.classList.remove('bg-white/80');
+        
+        navContainer.classList.remove('h-24', 'md:h-28');
+        navContainer.classList.add('h-16', 'md:h-20');
+        
+        navLogo.classList.remove('h-20', 'md:h-24');
+        navLogo.classList.add('h-12', 'md:h-16');
+      } else {
+        navbar.classList.remove('shadow-md', 'bg-white/95');
+        navbar.classList.add('bg-white/80');
+        
+        navContainer.classList.remove('h-16', 'md:h-20');
+        navContainer.classList.add('h-24', 'md:h-28');
+        
+        navLogo.classList.remove('h-12', 'md:h-16');
+        navLogo.classList.add('h-20', 'md:h-24');
+      }
+    });
   </script>
 </body>
 </html>
