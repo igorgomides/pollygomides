@@ -60,10 +60,10 @@
   <!-- Header / Navigation -->
   <header id="navbar"
     class="fixed top-0 left-0 w-full z-40 bg-white/80 backdrop-blur-md border-b border-transparent transition-all duration-300">
-    <div id="navbar-container" class="max-w-7xl mx-auto px-6 lg:px-8 h-28 md:h-32 flex items-center justify-between relative transition-all duration-300">
+    <div id="navbar-container" class="max-w-7xl mx-auto px-6 lg:px-8 h-36 md:h-40 flex items-center justify-between relative transition-all duration-300">
       <!-- Logo -->
       <a href="#home" class="flex items-center gap-2">
-        <img id="navbar-logo" src="polly_logo.jpg" alt="Polly Gomides Logo" class="h-24 md:h-28 w-auto mix-blend-multiply transform translate-x-24 translate-y-2 md:translate-y-4 transition-all duration-300">
+        <img id="navbar-logo" src="polly_logo.jpg" alt="Polly Gomides Logo" class="h-32 md:h-36 w-auto mix-blend-multiply transform translate-x-20 translate-y-2 md:translate-y-4 transition-all duration-300">
       </a>
 
       <!-- Desktop Navigation -->
@@ -135,7 +135,7 @@
   </header>
 
   <!-- Hero Section -->
-  <section id="home" class="relative pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden">
+  <section id="home" class="relative pt-44 pb-24 md:pt-56 md:pb-32 overflow-hidden">
     <!-- Glowing background decorative circle -->
     <div
       class="absolute top-1/4 right-[-10%] w-[500px] h-[500px] rounded-full bg-brand-orange/5 blur-[120px] pointer-events-none animate-pulse-slow">
@@ -1234,20 +1234,20 @@
         navbar.classList.add('shadow-md', 'bg-white/95', 'border-gray-100');
         navbar.classList.remove('bg-white/80', 'border-transparent');
         
-        navContainer.classList.remove('h-28', 'md:h-32');
+        navContainer.classList.remove('h-36', 'md:h-40');
         navContainer.classList.add('h-20', 'md:h-24');
         
-        navLogo.classList.remove('h-24', 'md:h-28');
+        navLogo.classList.remove('h-32', 'md:h-36');
         navLogo.classList.add('h-16', 'md:h-20');
       } else {
         navbar.classList.remove('shadow-md', 'bg-white/95', 'border-gray-100');
         navbar.classList.add('bg-white/80', 'border-transparent');
         
         navContainer.classList.remove('h-20', 'md:h-24');
-        navContainer.classList.add('h-28', 'md:h-32');
+        navContainer.classList.add('h-36', 'md:h-40');
         
         navLogo.classList.remove('h-16', 'md:h-20');
-        navLogo.classList.add('h-24', 'md:h-28');
+        navLogo.classList.add('h-32', 'md:h-36');
       }
     });
 
