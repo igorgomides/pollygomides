@@ -177,6 +177,11 @@ def call_gemini(prompt):
 def serve_index():
     return send_from_directory(SCRIPT_DIR, 'index.html')
 
+# Route to serve admin area cleanly
+@app.route('/admin')
+def serve_admin():
+    return send_from_directory(SCRIPT_DIR, 'admin.html')
+
 # Serve static files dynamically
 @app.route('/<path:path>')
 def serve_static(path):

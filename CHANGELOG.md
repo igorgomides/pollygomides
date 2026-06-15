@@ -1,5 +1,5 @@
 # Polly Gomides ESL Website - Changelog
-**Data:** 14 de Junho de 2026  
+**Data:** 15 de Junho de 2026  
 **Status:** Concluído, Integrado e Pronto para Deploy
 
 ---
@@ -124,3 +124,11 @@
   * **Processamento Rápido via JSON + BeautifulSoup:** Em vez de gerar o arquivo HTML inteiro pela API (o que causava timeouts), configuramos o Gemini `gemini-2.5-flash` para retornar apenas um objeto JSON com seletores e ações específicas. O servidor faz o merge das alterações em memória de forma imediata usando BeautifulSoup.
   * **Importação Local:** O botão "Importar Planilha" agora aplica os feedbacks instantaneamente via Python sem requisições de rede para a IA.
   * **Salvamento com Backup Duplo:** Ao aprovar visualmente as alterações, o servidor cria cópias históricas com timestamp do `index.html` original e do preview na pasta `backups/`, publica as mudanças oficiais e atualiza os feedbacks no Google Sheets.
+
+### 16. Correção do Deploy de Produção (Railway) e Ajustes de Rotas
+* **Problema:** A aplicação web em produção estava fora do ar com o erro *502 Bad Gateway* porque o Railway não instalava as dependências Python (Flask, requests, bs4) devido à falta do arquivo `requirements.txt`, e a rota do painel admin gerava erros de caminho relativo em determinados formatos de URL.
+* **Solução:**
+  * **requirements.txt:** Criado o arquivo de dependências contendo `Flask`, `requests` e `beautifulsoup4`.
+  * **Procfile:** Criado o arquivo de declaração de processo `web: python3 server.py` para instruir o Railway sobre como executar o servidor.
+  * **Rotas do Servidor:** Adicionada a rota `/admin` no [server.py](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/server.py) para servir a área de administração de forma limpa, com ou sem a extensão `.html`.
+  * **Ajuste de Links:** Atualizados os links do botão "Revisar Site" em [admin.html](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/admin.html) de `index.html?review=true` para `/index.html?review=true` para garantir que o redirecionamento aponte sempre de forma absoluta à raiz do site, evitando quebras por caminhos relativos indesejados.
