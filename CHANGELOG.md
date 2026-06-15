@@ -114,3 +114,13 @@
   * **Alinhamento Centralizado com o Badge:** Aplicamos uma translação horizontal (`translate-x-20` correspondente a 80px) para que o centro do logotipo alinhe perfeitamente com o centro do badge de destaque "*Cohorts Open for Semester 2, 2026*".
   * **Controle Dinâmico no Scroll (Correção de Transbordo):** Adicionamos transições suaves no scroll. Quando a página é rolada, o cabeçalho encolhe para um tamanho compacto (`h-20` / `h-24`) e a logo reduz para `h-16` / `h-20`, removendo dinamicamente o deslocamento vertical (`translate-y-0`) para evitar que a logo ultrapasse a borda inferior do cabeçalho reduzido.
   * **Ajuste de Padding no Hero:** Expandimos o espaçamento superior da seção hero (`pt-44` / `md:pt-56`) para evitar a sobreposição com o cabeçalho inicial que ficou mais alto.
+  
+### 15. Novo Painel de Revisão IA Híbrido, Chat & Backups Automáticos
+* **Problema:** A aplicação manual via CLI não permitia revisar e refinar as mudanças de forma fluida e corria o risco de timeouts ou estouro do limite de tokens ao reescrever o arquivo HTML de 92 KB inteiro a cada chamada de IA. Além disso, havia um desalinhamento de colunas no Sheets que gerava seletores não encontrados.
+* **Solução:**
+  * **Mapeamento de Planilha Corrigido:** O script agora lê o seletor CSS correto da coluna `original_text` e a nova sugestão de substituição da coluna `comments` (ou `suggested_text`), resolvendo as falhas de elementos não encontrados.
+  * **Servidor Flask Backend ([server.py](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/server.py)):** Criado um servidor leve em segundo plano na porta `5001` (com suporte a fallback de porta) que mantém a sessão de chat ativa.
+  * **Assistente IA no Admin Panel:** Adicionado o botão **"Assistente de IA"** na barra de navegação de [admin.html](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/admin.html) abrindo uma área em split-screen: chat interativo do lado esquerdo e um `<iframe>` contendo a página `index_preview.html` do lado direito.
+  * **Processamento Rápido via JSON + BeautifulSoup:** Em vez de gerar o arquivo HTML inteiro pela API (o que causava timeouts), configuramos o Gemini `gemini-2.5-flash` para retornar apenas um objeto JSON com seletores e ações específicas. O servidor faz o merge das alterações em memória de forma imediata usando BeautifulSoup.
+  * **Importação Local:** O botão "Importar Planilha" agora aplica os feedbacks instantaneamente via Python sem requisições de rede para a IA.
+  * **Salvamento com Backup Duplo:** Ao aprovar visualmente as alterações, o servidor cria cópias históricas com timestamp do `index.html` original e do preview na pasta `backups/`, publica as mudanças oficiais e atualiza os feedbacks no Google Sheets.
