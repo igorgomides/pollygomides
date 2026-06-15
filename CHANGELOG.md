@@ -83,3 +83,26 @@
   * Atualizado o arquivo de configuração local [`.showcase_config.json`](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/.showcase_config.json) com o atributo `update_policy`.
   * Adicionada a instrução de atualização no [README.md](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/README.md) do site principal.
   * Documentada a política de atualização e vinculada de volta ao projeto no [README.md](file:///home/igor-gomides/Documents/Antigravity/MYPORTIFOLIO/showcase/README.md) do showcase externo.
+
+### 10. Teste de Nível de Inglês (CEFR)
+* **Solução:**
+  * Criado o arquivo [quiz.html](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/quiz.html) com um teste interativo de nivelamento contendo 28 perguntas de múltipla escolha.
+  * O teste avalia gramática, vocabulário e compreensão, exibindo o nível CEFR (A1 a C2) ao final de forma dinâmica.
+  * Integração para envio do resultado completo para o WhatsApp da Polly (`+15195021481`) via redirecionamento pré-preenchido (sem exibir o número abertamente no site).
+  * Envio automático dos dados do teste (Nome, E-mail, Telefone, Respostas corretas, Tempo de conclusão e Nível obtido) para a planilha "Nivelamentos" do Google Sheets.
+
+### 11. Painel CRM & Google Sheets (Nivelamentos)
+* **Solução:**
+  * Modificado [admin.html](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/admin.html) adicionando uma aba de "Nivelamentos" para visualização e busca de todos os testes de nível submetidos pelos alunos.
+  * Atualização da integração com o Google Sheets no painel admin para carregar dados das duas abas ("Contatos" e "Nivelamentos").
+  * Atualizado o código em [google_apps_script.js](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/google_apps_script.js) para processar envios e retornos seguros do banco de dados na aba de Nivelamentos.
+
+### 12. Fotos de Perfil & Mascote Base
+* **Solução:**
+  * Download via SMB da nova foto de perfil da Polly (`polly_profile.png`) a partir do Mac do usuário e integração no layout do site.
+  * Download via SMB da imagem base do mascote (`Gemini_Generated_Image_pdw50fpdw50fpdw5.png`) para armazenamento no repositório.
+
+### 13. Novo Logotipo com Mascote Integrado
+* **Solução:**
+  * Geração de um novo logotipo profissional (`polly_logo.jpg`) mesclando a identidade visual da Polly Gomides com a bonequinha de mascote gerada pela IA, onde ela aparece sentada acima do nome.
+  * Substituição do logotipo em texto pelo novo logotipo em imagem no cabeçalho das páginas [index.html](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/index.html) e [quiz.html](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/quiz.html) com efeito de mesclagem visual (`mix-blend-multiply`).
