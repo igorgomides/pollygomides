@@ -161,3 +161,4 @@
   * **Simplificação do Script de Scroll:** Removidos os redimensionamentos dinâmicos de altura da logo e translações no evento de rolagem, mantendo apenas a transição de sombra e borda.
   * **Hero Padding:** Ajustada a margem superior (`pt-32` / `md:pt-40`) da seção hero para compensar a redução de altura do cabeçalho.
   * **Preservação da Logo:** O arquivo de logotipo em imagem (`polly_logo.jpg`) foi mantido intacto no repositório conforme solicitado.
+  * **CTA de Navegação:** Ajustado o texto do botão CTA de navegação principal de "Buy Now" para "Start Now".
