@@ -59,13 +59,11 @@
     class="fixed top-0 left-0 w-full z-40 bg-white/80 backdrop-blur-md border-b border-transparent transition-all duration-300"
     id="navbar">
     <div
-      class="max-w-7xl mx-auto px-6 lg:px-8 h-36 md:h-40 flex items-center justify-between relative transition-all duration-300"
+      class="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between relative"
       id="navbar-container">
       <!-- Logo -->
-      <a class="flex items-center gap-2" href="#home">
-        <img alt="Polly Gomides Logo"
-          class="h-32 md:h-36 w-auto mix-blend-multiply transform translate-x-20 translate-y-2 md:translate-y-4 transition-all duration-300"
-          id="navbar-logo" src="polly_logo.jpg" />
+      <a href="#home" class="text-xl font-extrabold text-brand-navy tracking-tight flex items-center gap-2">
+        Polly <span class="text-brand-orange">Gomides</span>
       </a>
       <!-- Desktop Navigation -->
       <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-brand-navy/80">
@@ -129,7 +127,7 @@
     </div>
   </header>
   <!-- Hero Section -->
-  <section class="relative pt-44 pb-24 md:pt-56 md:pb-32 overflow-hidden" id="home">
+  <section class="relative pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden" id="home">
     <!-- Glowing background decorative circle -->
     <div
       class="absolute top-1/4 right-[-10%] w-[500px] h-[500px] rounded-full bg-brand-orange/5 blur-[120px] pointer-events-none animate-pulse-slow">
@@ -1189,29 +1187,15 @@
   </div>
   <!-- Javascript Logic -->
   <script>
-    // Navbar Scroll Shadow Effect and Height Transition
+    // Navbar Scroll Shadow Effect
     window.addEventListener('scroll', () => {
       const navbar = document.getElementById('navbar');
-      const navContainer = document.getElementById('navbar-container');
-      const navLogo = document.getElementById('navbar-logo');
       if (window.scrollY > 20) {
         navbar.classList.add('shadow-md', 'bg-white/95', 'border-gray-100');
         navbar.classList.remove('bg-white/80', 'border-transparent');
-
-        navContainer.classList.remove('h-36', 'md:h-40');
-        navContainer.classList.add('h-20', 'md:h-24');
-
-        navLogo.classList.remove('h-32', 'md:h-36', 'translate-y-2', 'md:translate-y-4');
-        navLogo.classList.add('h-16', 'md:h-20', 'translate-y-0');
       } else {
         navbar.classList.remove('shadow-md', 'bg-white/95', 'border-gray-100');
         navbar.classList.add('bg-white/80', 'border-transparent');
-
-        navContainer.classList.remove('h-20', 'md:h-24');
-        navContainer.classList.add('h-36', 'md:h-40');
-
-        navLogo.classList.remove('h-16', 'md:h-20', 'translate-y-0');
-        navLogo.classList.add('h-32', 'md:h-36', 'translate-y-2', 'md:translate-y-4');
       }
     });
 

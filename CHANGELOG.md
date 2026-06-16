@@ -152,3 +152,12 @@
   * **Arte Customizada 3D:** Gerada e salva a imagem **[avatar_learning_3d.png](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/avatar_learning_3d.png)** baseando-se no estilo e nas cores oficiais do logotipo.
   * **Atualização do HTML:** Substituído o link da imagem no hero do [index.html](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/index.html) para `avatar_learning_3d.png`.
   * **Preservação:** Os arquivos de ilustração anteriores (`learning_hero.jpg` e `avatar_learning.png`) foram mantidos no diretório.
+
+### 19. Retorno do Logotipo para Apenas Texto (Polly Gomides)
+* **Mudança:** Reversão do logotipo no cabeçalho das páginas [index.html](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/index.html) e [quiz.html](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/quiz.html) de imagem (`polly_logo.jpg`) de volta para o texto simples da marca ("Polly Gomides").
+* **Solução:**
+  * **Remoção da Imagem do Cabeçalho:** Substituído o elemento `<img>` pelo texto estilizado original com cores institucionais (Navy Blue e Brand Orange).
+  * **Ajuste de Altura do Cabeçalho:** Restaurada a altura padrão compacta de `h-20` no contêiner do cabeçalho.
+  * **Simplificação do Script de Scroll:** Removidos os redimensionamentos dinâmicos de altura da logo e translações no evento de rolagem, mantendo apenas a transição de sombra e borda.
+  * **Hero Padding:** Ajustada a margem superior (`pt-32` / `md:pt-40`) da seção hero para compensar a redução de altura do cabeçalho.
+  * **Preservação da Logo:** O arquivo de logotipo em imagem (`polly_logo.jpg`) foi mantido intacto no repositório conforme solicitado.
