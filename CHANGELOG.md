@@ -163,3 +163,4 @@
   * **Preservação da Logo:** O arquivo de logotipo em imagem (`polly_logo.jpg`) foi mantido intacto no repositório conforme solicitado.
   * **CTA de Navegação:** Ajustado o texto do botão CTA de navegação principal de "Buy Now" para "Start Now".
   * **Tamanho de Fonte:** Reduzido o tamanho da fonte do parágrafo de chamada do grid de cursos de `text-lg` para `text-base` para melhor harmonia visual.
+  * **Links de Contato:** Atualizado o email de contato oficial para `pollygomides.ca@gmail.com` e integrados os links do LinkedIn e Instagram reais da mentora.
