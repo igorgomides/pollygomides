@@ -133,15 +133,15 @@
   * **Rotas do Servidor:** Adicionada a rota `/admin` no [server.py](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/server.py) para servir a área de administração de forma limpa, com ou sem a extensão `.html`.
   * **Ajuste de Links:** Atualizados os links do botão "Revisar Site" em [admin.html](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/admin.html) de `index.html?review=true` para `/index.html?review=true` para garantir que o redirecionamento aponte sempre de forma absoluta à raiz do site, evitando quebras por caminhos relativos indesejados.
 
-### 17. Aplicação e Sincronização Direta de 26 Feedbacks
-* **Ação:** O agente processou e aplicou diretamente todos os 26 feedbacks de layout, textos e configurações pendentes na planilha de controle do Google Sheets, traduzindo seções para o inglês e ajustando a estrutura de cursos e metodologia:
+### 17. Aplicação e Sincronização Direta de 27 Feedbacks
+* **Ação:** O agente processou e aplicou diretamente todos os 27 feedbacks de layout, textos e configurações pendentes na planilha de controle do Google Sheets, traduzindo seções para o inglês e ajustando a estrutura de cursos e metodologia:
   * **Level Assessment:** Traduzidos os textos e chamadas do teste de nivelamento (`section#level-assessment`) e atualizados os links do menu (desktop e mobile) de "Teste de Nível" para "Level Assessment".
   * **Buy Now:** Alterado o CTA principal do cabeçalho de "Apply Now" para "Buy Now".
-  * **Headline do Hero:** Simplificada a H1 principal para "Study with me in the second semester of 2026".
+  * **Headline do Hero:** Simplificada a H1 principal para "Study with me in the 2nd semester of 2026" (atualizando "second" para "2nd" no feedback mais recente).
   * **Urgência / Badge:** Atualizado o badge superior para "COHORTS OPEN FOR 2ND SEMESTER OF 2026".
   * **Estrutura Metodológica:** Alterados os prazos de upload de gravações de aulas de 24h para 48h. Trocada a ordem do Fluxo Semanal (Cheat Sheet passa a ser o Passo 1, e a Aula ao Vivo passa a ser o Passo 2), renomeando para "1-Pre-Class Cheat Sheet" e "Active Live Session" de forma coordenada no texto e no ciclo semanal visual.
   * **Horários das Turmas:** Sincronizados todos os horários e fuso horários das turmas 1, 2, 3 e 4 (incluindo marcações EDT e BRT).
   * **Preços:** Atualizado o plano de parcelamento do Teacher Booster para "Or 2x of $75".
   * **Novo Produto (Card 5):** Adicionado o novo card de produto "Fluency Accelerator" (1-on-1 Private Coaching, $455.00 total ou 2x de $226.00) após o Teacher Booster. Ajustada a grade de cursos de 4 para 5 colunas responsivas (`grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5`).
   * **Bio da Mentora (Polly Gomides):** Atualizados os títulos de perfil para "Polly Gomides, M.A." e "ESL INSTRUCTOR", com a inclusão de uma biografia completamente reescrita em inglês cobrindo sua trajetória e foco em fluência e conexão cultural.
-  * **Sincronização:** Todas as 26 linhas foram atualizadas diretamente via requisição na API do Google Sheets para o status "Aplicado via Agente", limpando a fila de pendências no painel admin.
+  * **Sincronização:** Todas as 27 linhas foram atualizadas diretamente via requisição na API do Google Sheets para o status "Aplicado via Agente", limpando a fila de pendências no painel admin.
