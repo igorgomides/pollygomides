@@ -146,9 +146,9 @@
   * **Bio da Mentora (Polly Gomides):** Atualizados os títulos de perfil para "Polly Gomides, M.A." e "ESL INSTRUCTOR", com a inclusão de uma biografia completamente reescrita em inglês cobrindo sua trajetória e foco em fluência e conexão cultural.
   * **Sincronização:** Todas as 27 linhas foram atualizadas diretamente via requisição na API do Google Sheets para o status "Aplicado via Agente", limpando a fila de pendências no painel admin.
 
-### 18. Nova Imagem do Hero com Avatar da Polly
-* **Mudança:** Substituição da ilustração genérica do computador no hero por uma nova arte personalizada que insere a personagem/avatar da Polly Gomides (menina loira de casaco rosa do logotipo) sentada em frente ao laptop, estudando ativamente.
+### 18. Nova Imagem do Hero com Avatar da Polly (Estilo 3D Pixar)
+* **Mudança:** Substituição da ilustração genérica do computador no hero por uma nova arte personalizada tridimensional (3D) que insere a personagem/avatar da Polly Gomides (estilo Pixar/Disney de animação tridimensional, com casaco rosa e cabelo cacheado loiro do logotipo) sentada em frente ao laptop, estudando.
 * **Solução:**
-  * **Arte Customizada:** Gerada e salva a nova imagem **[avatar_learning.png](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/avatar_learning.png)**, mantendo o estilo de traços minimalistas e detalhes em laranja da arte anterior para preservar a coerência visual.
-  * **Atualização do HTML:** Substituído o link da imagem no hero do [index.html](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/index.html) de `learning_hero.jpg` para `avatar_learning.png`.
-  * **Retenção da Imagem Antiga:** O arquivo original `learning_hero.jpg` foi mantido no diretório para uso futuro se necessário.
+  * **Arte Customizada 3D:** Gerada e salva a imagem **[avatar_learning_3d.png](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/avatar_learning_3d.png)** baseando-se no estilo e nas cores oficiais do logotipo.
+  * **Atualização do HTML:** Substituído o link da imagem no hero do [index.html](file:///home/igor-gomides/Documents/Antigravity/POLLYGOMIDES/SITE/index.html) para `avatar_learning_3d.png`.
+  * **Preservação:** Os arquivos de ilustração anteriores (`learning_hero.jpg` e `avatar_learning.png`) foram mantidos no diretório.
