@@ -164,3 +164,10 @@
   * **CTA de Navegação:** Ajustado o texto do botão CTA de navegação principal de "Buy Now" para "Start Now".
   * **Tamanho de Fonte:** Reduzido o tamanho da fonte do parágrafo de chamada do grid de cursos de `text-lg` para `text-base` para melhor harmonia visual.
   * **Links de Contato:** Atualizado o email de contato oficial para `pollygomides.ca@gmail.com` e integrados os links do LinkedIn e Instagram reais da mentora.
+
+### 20. Implantação e Configuração SSH/SFTP na WHC.ca
+* **Mudança:** Configuração do ambiente local para acesso SSH e publicação completa dos arquivos do site no servidor cPanel da WHC (`72.251.7.3`).
+* **Solução:**
+  * **Configuração SSH local:** Atualizado o arquivo de configuração local `~/.ssh/config` com os novos dados de acesso (Host `pollygomideswhc`, usuário `gcgjj208` e porta `27`).
+  * **Deploy automatizado via Script:** Desenvolvido e executado um script de implantação em Python (`deploy.py`) utilizando `paramiko` para carregar todos os arquivos estáticos e imagens (`index.html`, `quiz.html`, `admin.html` e imagens institucionais/avatares) para a pasta remota `public_html/`.
+  * **Verificação de conflitos:** O script confirmou a ausência de arquivos placeholders conflitantes no servidor, deixando a raiz pronta para servir o site assim que a propagação de DNS for finalizada.
